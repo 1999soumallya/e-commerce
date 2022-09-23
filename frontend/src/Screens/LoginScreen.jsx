@@ -24,7 +24,6 @@ const LoginScreen = ({ location }) => {
 
   useEffect(() => {
     if (JSON.stringify(userInfo) !== '[]') {
-      console.log(userInfo);
       history.push(redirect)
     } else {
       history.push("/signin")
