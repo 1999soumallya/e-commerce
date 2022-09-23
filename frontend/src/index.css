@@ -1,0 +1,32 @@
+main {
+    min-height: 80vh;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+strong {
+    font-weight: bold !important;
+}
+
+.stars {
+    color: rgb(167, 167, 63);
+}
+
+.productImage {
+    height: 223px !important;
+    object-fit: contain !important;
+}
+
+.loader{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.deleteButton{
+    border: 1px solid;
+    border-radius: 30px;
+}

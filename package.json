@@ -1,0 +1,51 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "e-commerce",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon Backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "data:import": "node Backend/seeder.js",
+    "data:destroy": "node Backend/seeder.js -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1999soumallya/e-commerce.git"
+  },
+  "author": "soumallya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1999soumallya/e-commerce/issues"
+  },
+  "homepage": "https://github.com/1999soumallya/e-commerce#readme",
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.10.3",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "concurrently": "^7.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.3",
+    "nodemon": "^2.0.19",
+    "nth-check": "^2.0.1",
+    "react-alert": "^7.0.3",
+    "react-loader-spinner": "^5.3.3",
+    "react-redux": "^8.0.2",
+    "react-toastify": "^9.0.8",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1"
+  }
+}
