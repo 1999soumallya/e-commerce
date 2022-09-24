@@ -11,24 +11,24 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const userDetail = useSelector((state) => state.userDetails);
-  const userLogin = useSelector((state) => state.userLogin);
 
   const { UserDetails } = userDetail;
-  const { userInfo } = userLogin;
+
+  const userInfo = localStorage.getItem("userInfo");
 
   useEffect(() => {
-    if (localStorage.getItem("userInfo")) {
+    if (userInfo) {
       dispatch(UserDetailsAction());
       setusername(UserDetails.name);
     } else {
       setusername("SignIn");
     }
-  }, [dispatch]);
+  }, [userInfo, dispatch]);
 
   const logoutHandler = () => {
-    // console.log("gjkhdfgdfjkg");
     dispatch(UserLogout());
-  }
+    window.location.reload(false);
+  };
 
   return (
     <Navbar
@@ -51,14 +51,14 @@ const Header = () => {
                 &nbsp; chart
               </Nav.Link>
             </LinkContainer>
-            {userInfo ? (
+            {localStorage.getItem("userInfo") ? (
               <NavDropdown title={username} id="Username">
                 <LinkContainer to={"/profile"}>
                   <NavDropdown.Item>Profile</NavDropdown.Item>
                 </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
               </NavDropdown>
             ) : (
               <LinkContainer to={"/signin"}>
