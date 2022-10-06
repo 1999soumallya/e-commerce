@@ -20,13 +20,12 @@ const Header = () => {
     if (userInfo) {
       dispatch(UserDetailsAction());
       setusername(UserDetails.name);
-    } else {
-      setusername("SignIn");
     }
   }, [userInfo, dispatch]);
 
   const logoutHandler = () => {
     dispatch(UserLogout());
+    setusername("SignIn");
     window.location.reload(false);
   };
 

@@ -3,17 +3,18 @@ import "../Style/css2.css";
 import "../Style/tailwind.min.css";
 import Logo from '../Images/Online-shop-logo-template-on-transparent-background-PNG.png'
 import BackgroundImage from '../Images/Online-Shopping.svg'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Col, Form, Row } from 'react-bootstrap'
 import DnaLoader from "../Shared/Loaders/DnaLoader";
 import ErrorAlert from "../Shared/Alerts/CustomAlert";
 import { UserLogin } from '../Actions/UserAction'
 import { useDispatch, useSelector } from 'react-redux'
 
-const LoginScreen = ({ location }) => {
+const LoginScreen = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const history = useHistory();
+  const location = useLocation();
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
@@ -60,7 +61,7 @@ const LoginScreen = ({ location }) => {
                 <Row className="row text-center pt-2">
                   <Col>
                     New Customer ?{" "}
-                    <Link to={redirect ? `register ? register = ${redirect}` : "/regsiter"}> Register </Link>
+                    <Link to={"/register"}> Register </Link>
                   </Col>
                 </Row>
               </Form>

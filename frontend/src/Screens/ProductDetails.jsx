@@ -64,7 +64,7 @@ const ProductDetails = ({history, match }) => {
                       </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      {SingleProduct.countInStock > 0 && (
+                      {SingleProduct.countInStock > 0 ? (
                         <Row>
                           <Col>Quantity :</Col>
                           <Col>
@@ -79,7 +79,20 @@ const ProductDetails = ({history, match }) => {
                             </Form.Control>
                           </Col>
                         </Row>
-                      )}
+                      ): (
+                      <Row>
+                          <Col>Quantity :</Col>
+                          <Col>
+                            <Form.Control as={"select"} value={Qty} onChange={(e) => setQty(e.target.value)}>
+                            {
+                              <option key={0 + 1} value={0 + 1}>
+                              {0 + 1}
+                              </option>
+                              }
+                            </Form.Control>
+                          </Col>
+                        </Row>
+                      ) }
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <Row>
