@@ -47,7 +47,7 @@ const Header = () => {
             <LinkContainer to="/cart">
               <Nav.Link>
                 <i className="fas fa-shopping-cart"></i>
-                &nbsp; cart
+                &nbsp; chart
               </Nav.Link>
             </LinkContainer>
             {localStorage.getItem("userInfo") ? (
