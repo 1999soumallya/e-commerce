@@ -1,5 +1,5 @@
 const express = require('express');
-const { RegisterUser, LoginUser, getUserProfile }  = require('../Controllers/UsersController')
+const { RegisterUser, LoginUser, getUserProfile, updateUserProfile }  = require('../Controllers/UsersController')
 const { protectRoute } = require('../Middlewares/authMiddlewares')
 
 const router = express.Router();
@@ -11,6 +11,6 @@ router.route('/').post(RegisterUser)
 router.post('/login', LoginUser)
 
 // Get User profile using private route
-router.route("/profile").get(protectRoute, getUserProfile);
+router.route("/profile").get(protectRoute, getUserProfile).put(protectRoute, updateUserProfile);
 
 module.exports = router;
