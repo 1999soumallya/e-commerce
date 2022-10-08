@@ -1,0 +1,207 @@
+body {
+    margin: 0;
+    margin: 0;
+}
+
+/* .profile_section {
+    padding: 80px 0px;
+} */
+
+.user_info {
+    margin-bottom: 30px;
+}
+
+.user_dp {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.user_dp img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+b.user_name {
+    display: block;
+    font-size: 20px;
+    text-transform: capitalize;
+    color: #000;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+span.user_jioning {
+    display: block;
+    font-size: 14px;
+    color: #929191;
+    font-weight: 300;
+}
+
+.details_tab {
+    width: 100%;
+}
+
+.profile_section .nav {
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.profile_section .nav-pills .nav-link.active,
+.profile_section .nav-pills .show>.nav-link {
+    background: #eee;
+    color: rgb(37, 24, 221);
+}
+
+.profile_section .nav-pills .nav-link {
+    border-radius: .25rem;
+    color: #929191;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 300;
+}
+
+.profile_section #v-pills-tabContent {
+    padding-left: 30px;
+}
+
+#v-pills-messages .table .thead-dark th {
+    background: #eee;
+    color: #000;
+    font-weight: 400;
+    border: none;
+}
+
+#v-pills-messages tbody tr th:first-child {
+    color: #e68080;
+}
+
+.address_area small {
+    font-size: 14px;
+    color: #929191;
+    display: block;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.shipping_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee;
+}
+
+b.shipping_title {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 24px;
+    text-transform: capitalize;
+}
+
+a.adress_edit {
+    color: #000;
+}
+
+a.adress_edit:hover {
+    color: rgb(37, 24, 221);
+    transition: 0.2s;
+}
+
+ul.address-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.address-details li {
+    font-size: 14px;
+    margin: 8px 0px;
+    font-weight: 300;
+}
+
+.account-details-form .form-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.account-details-form .form-group label {
+    position: absolute;
+    top: -11px;
+    left: 20px;
+    pointer-events: none;
+    z-index: 4;
+    background: #fff;
+    color: #929191;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.account-details-form .form-group .form-control {
+    height: 60px;
+    padding: 10px 30px;
+    border: 1px solid #eee;
+    color: #929191;
+    box-shadow: none;
+    background: #fff;
+}
+
+.account-details-form h5.title {
+    margin: 30px 0px;
+}
+
+.account-details-form select.select2.form-control {
+    height: 60px !important;
+    position: relative;
+}
+/* .account-details-form select.select2.form-control::after {
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    width: 30px;
+    height: 30px;
+} */
+.select_box {
+    position: relative;
+}
+.drop_down_icon {
+    position: absolute;
+    top: 16px;
+    right: 30px;
+    color: #ccc;
+}
+p.b3 {
+    font-size: 14px;
+    color: #929191;
+    font-weight: 300;
+    margin-top: 5px;
+}
+
+.save_changes_btn {
+    width: auto;
+    padding: 10px 30px;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 500;
+    transition: .3s;
+    background: rgb(37, 24, 221);
+    color: #fff;
+    font-size: 14px;
+    border: 2px solid rgb(37, 24, 221);
+}

@@ -30,3 +30,16 @@ strong {
     border: 1px solid;
     border-radius: 30px;
 }
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: var(--bs-dropdown-link-active-color);
+    text-decoration: none;
+    background-color: #535960 !important;
+    border-radius: 23px;
+    width: 90%;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    border-radius: 10px;
+}
