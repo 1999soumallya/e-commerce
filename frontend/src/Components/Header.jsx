@@ -10,18 +10,18 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
-  const userDetail = useSelector((state) => state.userDetails);
+  const userDetails = useSelector((state) => state.userDetails);
 
-  const { UserDetails } = userDetail;
+  const { user } = userDetails
 
   const userInfo = localStorage.getItem("userInfo");
 
   useEffect(() => {
     if (userInfo) {
       dispatch(UserDetailsAction());
-      setusername(UserDetails.name);
     }
-  }, [userInfo, dispatch]);
+    setusername(user.name)
+  }, [userInfo, dispatch, user.name]);
 
   const logoutHandler = () => {
     dispatch(UserLogout());
@@ -30,13 +30,7 @@ const Header = () => {
   };
 
   return (
-    <Navbar
-      bg="dark"
-      expand="lg"
-      variant="dark"
-      collapseOnSelect
-      style={{ height: "57px" }}
-    >
+    <Navbar bg="dark" expand="lg" variant="dark" collapseOnSelect style={{ height: "57px" }}>
       <Container>
         <Link to={"/"}>
           <Navbar.Brand>Online Shop</Navbar.Brand>
