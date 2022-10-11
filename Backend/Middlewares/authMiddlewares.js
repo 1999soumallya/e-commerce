@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken')
 const User = require('../Models/UserModel')
-const asynchandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler')
 
-const protectRoute = asynchandler(async (req, res, next) => {
+const protectRoute = asyncHandler(async (req, res, next) => {
     let token;
-    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer")
+    )
         try {
             token = req.headers.authorization.split(" ")[1];
             const decode = jwt.verify(token, process.env.JWT_KEY);
@@ -20,5 +23,4 @@ const protectRoute = asynchandler(async (req, res, next) => {
         throw new Error("Not Authorized, not token");
     }
 });
-
-module.exports = { protectRoute }
+module.exports = { protectRoute };

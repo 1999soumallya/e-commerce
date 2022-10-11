@@ -1,41 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { UserDetailsAction, UserLogout } from "../Actions/UserAction";
+import { UserLogout } from "../Actions/UserAction";
 
 const Header = () => {
-  const [username, setusername] = useState("SignIn");
-
-  const dispatch = useDispatch();
-
-  const userDetails = useSelector((state) => state.userDetails);
 
   const userLogin = useSelector((state) => state.userLogin);
-
-  const { user } = userDetails;
   const { userInfo } = userLogin;
-
-  useEffect(() => {
-    if (JSON.stringify(userInfo) !== "[]") {
-      dispatch(UserDetailsAction());
-    }
-  }, [userInfo, dispatch]);
-
-  useEffect(() => {
-    if (JSON.stringify(user) === "{}") {
-      setusername("SignIn");
-    } else {
-      setusername(user.name);
-    }
-  }, [user])
-  
+  const dispatch = useDispatch();
 
   const logoutHandler = () => {
     dispatch(UserLogout());
-    setusername("SignIn");
-    window.location.reload(false);
   };
 
   return (
@@ -59,9 +36,9 @@ const Header = () => {
                 &nbsp; chart
               </Nav.Link>
             </LinkContainer>
-            {JSON.stringify(userInfo) !== "[]" ? (
-              <NavDropdown title={username} id="Username">
-                <LinkContainer to={"/profile"}>
+            {userInfo ? (
+              <NavDropdown title={userInfo.name}>
+                <LinkContainer to="/profile">
                   <NavDropdown.Item>Profile</NavDropdown.Item>
                 </LinkContainer>
                 <NavDropdown.Item onClick={logoutHandler}>
@@ -69,10 +46,10 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <LinkContainer to={"/login"}>
-                <Nav.Link href="#link">
+              <LinkContainer to="/login">
+                <Nav.Link>
                   <i className="fas fa-user"></i>
-                  &nbsp;{username}
+                  &nbsp; signin
                 </Nav.Link>
               </LinkContainer>
             )}

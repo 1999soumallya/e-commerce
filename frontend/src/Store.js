@@ -6,11 +6,9 @@ import { SingleProductReducer } from './Reducers/SingleProductReducer'
 import { CartReducer } from './Reducers/CartReducer'
 import { UserLoginReducer, UserDetailsReducer , UserRegisterReducer } from './Reducers/UserReducer'
 
-const userInfoFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem('userInfo')) : [];
+const userInfoFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")): null;
 
-// const userDetailsFromStorage = localStorage.getItem("userDetails") ? JSON.parse(localStorage.getItem('userDetails')) : [];
-
-const cartItemsFromStorage = localStorage.getItem('cartitems') ? JSON.parse(localStorage.getItem('cartitems')) : []
+const cartItemsFromStorage = localStorage.getItem("cartItems")? JSON.parse(localStorage.getItem("cartItems")): [];
 
 const reducer = combineReducers({
     productList: ProductListReducer,

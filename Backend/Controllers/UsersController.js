@@ -1,6 +1,6 @@
 const User = require("../Models/UserModel");
 const asyncHandler = require("express-async-handler");
-const generatetoken = require("../utils/generatetoken");
+const generateToken = require("../utils/generateToken");
 
 const RegisterUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
@@ -11,7 +11,13 @@ const RegisterUser = asyncHandler(async (req, res) => {
     } else {
         const user = await User.create({ name, email, password });
         if (user) {
-            res.status(201).json({ token: generatetoken(user._id) });
+            res.status(201).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                token: generateToken(user._id),
+            });
         } else {
             res.status(404);
             throw new Error("User Not Created");
@@ -23,7 +29,13 @@ const LoginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (user && (await user.matchPassword(password))) {
-        res.json({ token: generatetoken(user._id) });
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token: generateToken(user._id),
+        });
     } else {
         res.status(401);
         throw new Error("Invalid Email or Password");
@@ -37,7 +49,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            IsAdmin: user.IsAdmin,
+            isAdmin: user.isAdmin,
         });
     } else {
         res.status(404);
@@ -59,7 +71,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             name: updateUser.name,
             email: updateUser.email,
             IsAdmin: updateUser.IsAdmin,
-            token: generatetoken(updateUser._id)
+            token: generateToken(updateUser._id)
         });
     } else {
         res.status(404)
