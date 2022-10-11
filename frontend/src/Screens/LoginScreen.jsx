@@ -27,12 +27,14 @@ const LoginScreen = () => {
     if (JSON.stringify(userInfo) !== '[]') {
       history.push(redirect)
     } else {
-      history.push("/signin")
+      history.push("/login")
     }
   }, [history, userInfo, redirect]);
 
+
   const submitHandler = (e) => {
     e.preventDefault();
+    //dispatch
     dispatch(UserLogin(email, password));
   };
 

@@ -74,7 +74,7 @@ const RegisterScreen = () => {
                                 <Row className="row text-center pt-2">
                                     <Col>
                                         Have an account ?{" "}
-                                        <Link to={"/signin"}> Login </Link>
+                                        <Link to={"/login"}> Login </Link>
                                     </Col>
                                 </Row>
                             </Form>
