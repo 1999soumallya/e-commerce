@@ -12,16 +12,25 @@ const Header = () => {
 
   const userDetails = useSelector((state) => state.userDetails);
 
-  const { user } = userDetails
+  const userLogin = useSelector((state) => state.userLogin);
 
-  const userInfo = localStorage.getItem("userInfo");
+  const { user } = userDetails;
+  const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo) {
+    if (JSON.stringify(userInfo) !== "[]") {
       dispatch(UserDetailsAction());
     }
-    setusername(user.name)
-  }, [userInfo, dispatch, user.name]);
+  }, [userInfo, dispatch]);
+
+  useEffect(() => {
+    if (JSON.stringify(user) === "{}") {
+      setusername("SignIn");
+    } else {
+      setusername(user.name);
+    }
+  }, [user])
+  
 
   const logoutHandler = () => {
     dispatch(UserLogout());
@@ -30,7 +39,13 @@ const Header = () => {
   };
 
   return (
-    <Navbar bg="dark" expand="lg" variant="dark" collapseOnSelect style={{ height: "57px" }}>
+    <Navbar
+      bg="dark"
+      expand="lg"
+      variant="dark"
+      collapseOnSelect
+      style={{ height: "57px" }}
+    >
       <Container>
         <Link to={"/"}>
           <Navbar.Brand>Online Shop</Navbar.Brand>
@@ -44,7 +59,7 @@ const Header = () => {
                 &nbsp; chart
               </Nav.Link>
             </LinkContainer>
-            {localStorage.getItem("userInfo") ? (
+            {JSON.stringify(userInfo) !== "[]" ? (
               <NavDropdown title={username} id="Username">
                 <LinkContainer to={"/profile"}>
                   <NavDropdown.Item>Profile</NavDropdown.Item>
