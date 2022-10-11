@@ -1,35 +1,43 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import '../Style/style.css'
 import UserImage from '../Images/author1.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { UserDetailsUpdateAction } from '../Actions/UserAction'
-import { Link, useHistory} from 'react-router-dom'
+import { UserDetailsAction } from '../Actions/UserAction'
+import { Link } from 'react-router-dom'
+import countryList from 'react-select-country-list'
+import Select from 'react-select'
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ history }) => {
     const [firstName, setfirstName] = useState("")
     const [lastName, setlastName] = useState("")
     const [Email, setEmail] = useState("")
+    const [value, setValue] = useState('')
+    const options = useMemo(() => countryList().getData(), [])
     const dispatch = useDispatch()
-    const history = useHistory()
 
-    const userDetailsUpdate = useSelector(state => state.userDetailsUpdate)
+    const userLogin = useSelector(state => state.userLogin)
     const userDetails = useSelector(state => state.userDetails)
 
-    const { user } = userDetailsUpdate
-    const { UserDetails } = userDetails
+    const { userInfo } = userLogin
+    const { user } = userDetails
 
-    
+    const changeHandler = value => {
+        setValue(value)
+    }
+
     useEffect(() => {
-        if (!localStorage.getItem('userInfo')) {
-            history.push("/signin")
+        if (!userInfo) {
+            history.push("/login")
         } else {
-            dispatch(UserDetailsUpdateAction('profile'))
-            setfirstName(UserDetails.name.split(" ")[0])
-            setlastName(UserDetails.name.split(" ")[1])
-            setEmail(UserDetails.email)
+            if (!user._id) {
+                dispatch(UserDetailsAction('profile'))
+            } else {
+                setfirstName(user.name.split(" ")[0])
+                setlastName(user.name.split(" ")[1])
+                setEmail(user.email)
+            }
         }
-        // getUsername()
-    }, [dispatch, history])
+    }, [dispatch, history, user, userInfo])
 
     return (
         <div>
@@ -161,7 +169,7 @@ const ProfileScreen = () => {
                                                 <div className="col-sm-6">
                                                     <div className="form-group">
                                                         <label>First Name</label>
-                                                        <input type="text" className="form-control" value={firstName} onChange={(e) => setfirstName(e.target.value) } />
+                                                        <input type="text" className="form-control" value={firstName} onChange={(e) => setfirstName(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6">
@@ -179,20 +187,14 @@ const ProfileScreen = () => {
                                                 <div className="col-sm-6">
                                                     <div className="form-group mb--40 select_box">
                                                         <label>Country/ Region</label>
-                                                        <select className="select2 form-control">
-                                                            <option value={1}>United Kindom (UK)</option>
-                                                            <option value={1}>United States (USA)</option>
-                                                            <option value={1}>United Arab Emirates (UAE)</option>
-                                                            <option value={1}>Australia</option>
-                                                        </select>
-                                                        <div className="drop_down_icon"><i className="fas fa-sort-down"></i></div>
+                                                        <Select options={options} value={value} onChange={changeHandler} />
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-12">
-                                                        <p className="b3 mt--10">
-                                                            This will be how your name will be displayed in the account
-                                                            section and in reviews
-                                                        </p>
+                                                    <p className="b3 mt--10">
+                                                        This will be how your name will be displayed in the account
+                                                        section and in reviews
+                                                    </p>
                                                     <h5 className="title">Password Change</h5>
                                                     <div className="form-group">
                                                         <label>Password</label>
@@ -211,7 +213,7 @@ const ProfileScreen = () => {
                                                         <input type="password" className="form-control" />
                                                     </div>
                                                     <div className="form-group mb--0">
-                                                        <input type="submit" className="save_changes_btn" defaultValue="Save Changes"/>
+                                                        <input type="submit" className="save_changes_btn" defaultValue="Save Changes" />
                                                     </div>
                                                 </div>
                                             </div>

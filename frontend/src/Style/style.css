@@ -152,7 +152,9 @@ ul.address-details li {
     box-shadow: none;
     background: #fff;
 }
-
+.account-details-form .form-group .form-control:focus {
+    border: 1px solid #2684ff;
+}
 .account-details-form h5.title {
     margin: 30px 0px;
 }
@@ -161,30 +163,9 @@ ul.address-details li {
     height: 60px !important;
     position: relative;
 }
-/* .account-details-form select.select2.form-control::after {
-    display: inline-block;
-    margin-left: .255em;
-    vertical-align: .255em;
-    content: "";
-    border-top: .3em solid;
-    border-right: .3em solid transparent;
-    border-bottom: 0;
-    border-left: .3em solid transparent;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 20px;
-    width: 30px;
-    height: 30px;
-} */
+
 .select_box {
     position: relative;
-}
-.drop_down_icon {
-    position: absolute;
-    top: 16px;
-    right: 30px;
-    color: #ccc;
 }
 p.b3 {
     font-size: 14px;
@@ -204,4 +185,10 @@ p.b3 {
     color: #fff;
     font-size: 14px;
     border: 2px solid rgb(37, 24, 221);
+}
+
+.css-1s2u09g-control{
+    border-radius: 0px !important;
+    border-color: #eee !important;
+    min-height: 58px !important;
 }
