@@ -11,7 +11,6 @@ router.route('/').post(RegisterUser)
 router.post('/login', LoginUser)
 
 // Get User profile using private route
-// router.route("/profile").get(protectRoute, getUserProfile).put(protectRoute, updateUserProfile);
 router.route("/profile").get(protectRoute, getUserProfile).put(protectRoute, updateUserProfile);
 
 module.exports = router;

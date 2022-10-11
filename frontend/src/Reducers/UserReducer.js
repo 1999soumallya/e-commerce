@@ -1,4 +1,4 @@
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILS, USER_LOGOUT, USER_REGISTER_SUCCESS, USER_REGISTER_REQUEST, USER_REGISTER_FAILS, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAILS, USER_DETAILS_RESET } from '../Constants/UserConstants'
+import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILS, USER_LOGOUT, USER_REGISTER_SUCCESS, USER_REGISTER_REQUEST, USER_REGISTER_FAILS, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAILS, USER_DETAILS_RESET, USER_UPDATE_PROFILE_RESET, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAILS } from '../Constants/UserConstants'
 
 export const UserRegisterReducer = (state = {}, action) => {
     switch (action.type) {
@@ -39,6 +39,22 @@ export const UserDetailsReducer = (state = { user: {} }, action) => {
             return { loading: false, error: action.payload };
         case USER_DETAILS_RESET:
             return { user: {} };
+        default:
+            return state;
+    }
+}
+
+export const UserUpdateProfileReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_UPDATE_REQUEST:
+            return { loading: true, ...state }
+        
+        case USER_UPDATE_SUCCESS:
+            return { loading: false, succcess: true, userInfo: action.payload }
+        
+        case USER_UPDATE_FAILS:
+            return { loading: false, error: action.payload }
+
         default:
             return state;
     }

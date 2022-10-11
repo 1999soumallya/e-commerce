@@ -187,8 +187,12 @@ p.b3 {
     border: 2px solid rgb(37, 24, 221);
 }
 
-.css-1s2u09g-control{
+.css-1s2u09g-control {
     border-radius: 0px !important;
     border-color: #eee !important;
+    min-height: 58px !important;
+}
+
+.css-1pahdxg-control {
     min-height: 58px !important;
 }

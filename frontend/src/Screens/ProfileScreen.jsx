@@ -1,16 +1,22 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import '../Style/style.css'
-import UserImage from '../Images/author1.png'
-import { useDispatch, useSelector } from 'react-redux'
-import { UserDetailsAction } from '../Actions/UserAction'
 import { Link } from 'react-router-dom'
+import { Form } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
+import UserImage from '../Images/author1.png'
+import '../Style/style.css'
+import { UserDetailsAction, UpdateUserProfileAction } from '../Actions/UserAction'
+import ErrorAlert from '../Shared/Alerts/CustomAlert'
 
 const ProfileScreen = ({ history }) => {
     const [firstName, setfirstName] = useState("")
     const [lastName, setlastName] = useState("")
     const [Email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [name, setname] = useState("")
+    const [confirmpassword, setConfirmPassword] = useState("")
+
     const [value, setValue] = useState('')
     const options = useMemo(() => countryList().getData(), [])
     const dispatch = useDispatch()
@@ -24,6 +30,9 @@ const ProfileScreen = ({ history }) => {
     const changeHandler = value => {
         setValue(value)
     }
+
+    const userUpdate = useSelector((state) => state.userUpdate)
+    const { success } = userUpdate
 
     useEffect(() => {
         if (!userInfo) {
@@ -39,9 +48,27 @@ const ProfileScreen = ({ history }) => {
         }
     }, [dispatch, history, user, userInfo])
 
+    useEffect(() => {
+        if (JSON.stringify(user) !== "{}") {
+            let f = user.name.split(" ")[0]
+            let l = user.name.split(" ")[1]
+            if (firstName !== f || lastName !== l) {
+                setname(firstName + " " + lastName)
+            } else {
+                setname(user.name)
+            }
+        }
+    }, [firstName, lastName, user])
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        dispatch(UpdateUserProfileAction({ id: user._id, name, Email, password }))
+    }
+
     return (
         <div>
             <section className="profile_section">
+
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12">
@@ -55,6 +82,7 @@ const ProfileScreen = ({ history }) => {
                                 </div>
                             </div>
                         </div>
+                        {success && <ErrorAlert variant="danger" children={"Profile Updated"} />}
                         <div className="col-sm-3">
                             <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
@@ -164,18 +192,19 @@ const ProfileScreen = ({ history }) => {
                                 </div>
                                 <div className="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
                                     <div className="user_account_detl">
-                                        <form action="" className="account-details-form">
+                                        <Form onSubmit={submitHandler} className="account-details-form">
                                             <div className="row">
                                                 <div className="col-sm-6">
                                                     <div className="form-group">
                                                         <label>First Name</label>
                                                         <input type="text" className="form-control" value={firstName} onChange={(e) => setfirstName(e.target.value)} />
+                                                        {/* <input type="text" className="form-control" value={firstName + " " + lastName} onChange={(e) => setname(e.target.value)} /> */}
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6">
                                                     <div className="form-group">
                                                         <label>Last Name</label>
-                                                        <input type="text" className="form-control" value={lastName} onChange={(e) => setfirstName(e.target.value)} />
+                                                        <input type="text" className="form-control" value={lastName} onChange={(e) => setlastName(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6">
@@ -197,27 +226,19 @@ const ProfileScreen = ({ history }) => {
                                                     </p>
                                                     <h5 className="title">Password Change</h5>
                                                     <div className="form-group">
-                                                        <label>Password</label>
-                                                        <input
-                                                            type="password"
-                                                            className="form-control"
-                                                            defaultValue={123456789101112131415}
-                                                        />
-                                                    </div>
-                                                    <div className="form-group">
                                                         <label>New Password</label>
-                                                        <input type="password" className="form-control" />
+                                                        <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
                                                     </div>
                                                     <div className="form-group">
                                                         <label>Confirm New Password</label>
-                                                        <input type="password" className="form-control" />
+                                                        <input type="password" className="form-control" value={confirmpassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                                                     </div>
                                                     <div className="form-group mb--0">
                                                         <input type="submit" className="save_changes_btn" defaultValue="Save Changes" />
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </Form>
                                     </div>
                                 </div>
 
