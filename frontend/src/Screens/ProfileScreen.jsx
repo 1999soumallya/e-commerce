@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import countryList from 'react-select-country-list'
+import { State, City } from 'country-state-city'
 import Select from 'react-select'
 import UserImage from '../Images/author1.png'
 import '../Style/style.css'
@@ -16,8 +17,11 @@ const ProfileScreen = ({ history }) => {
     const [password, setPassword] = useState("")
     const [name, setname] = useState("")
     const [confirmpassword, setConfirmPassword] = useState("")
+    const [country, setCountry] = useState('')
+    const [state, setState] = useState('')
+    const [city, setCity] = useState('')
 
-    const [value, setValue] = useState('')
+
     const options = useMemo(() => countryList().getData(), [])
     const dispatch = useDispatch()
 
@@ -27,12 +31,16 @@ const ProfileScreen = ({ history }) => {
     const { userInfo } = userLogin
     const { user } = userDetails
 
-    const changeHandler = value => {
-        setValue(value)
+    const changeHandler = (value) => {
+        setCountry(value)
     }
 
+    let stateList = State.getStatesOfCountry(country.value)
+    let cityList = City.getCitiesOfState(country.value, state)
+
+
     const userUpdate = useSelector((state) => state.userUpdate)
-    const { success } = userUpdate
+    const { succcess } = userUpdate
 
     useEffect(() => {
         if (!userInfo) {
@@ -82,7 +90,6 @@ const ProfileScreen = ({ history }) => {
                                 </div>
                             </div>
                         </div>
-                        {success && <ErrorAlert variant="danger" children={"Profile Updated"} />}
                         <div className="col-sm-3">
                             <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
@@ -192,13 +199,14 @@ const ProfileScreen = ({ history }) => {
                                 </div>
                                 <div className="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
                                     <div className="user_account_detl">
+                                        {succcess && <ErrorAlert variant="success" children={"Profile Updated"} />}
+
                                         <Form onSubmit={submitHandler} className="account-details-form">
                                             <div className="row">
                                                 <div className="col-sm-6">
                                                     <div className="form-group">
                                                         <label>First Name</label>
                                                         <input type="text" className="form-control" value={firstName} onChange={(e) => setfirstName(e.target.value)} />
-                                                        {/* <input type="text" className="form-control" value={firstName + " " + lastName} onChange={(e) => setname(e.target.value)} /> */}
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-6">
@@ -216,7 +224,49 @@ const ProfileScreen = ({ history }) => {
                                                 <div className="col-sm-6">
                                                     <div className="form-group mb--40 select_box">
                                                         <label>Country/ Region</label>
-                                                        <Select options={options} value={value} onChange={changeHandler} />
+                                                        <Select options={options} value={country} onChange={changeHandler} />
+                                                    </div>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <div className="form-group mb--40 select_box">
+                                                        <label>State</label>
+                                                        {
+                                                            JSON.stringify(stateList) !== "[]" ? (
+                                                                <select className="form-select" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value)}>
+                                                                    <option value={"StateSelected"} selected>Select State</option>
+                                                                    {
+                                                                        stateList.map((stateList) => (
+                                                                            <option value={stateList.isoCode}>{stateList.name}</option>
+                                                                        ))
+                                                                    }
+                                                                </select>
+                                                            ) : (
+                                                                <select className="form-select" aria-label="Default select example">
+                                                                    <option value={"StateSelected"}>Select...</option>
+                                                                </select>
+                                                            )
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <div className="form-group mb--40 select_box">
+                                                        <label>City</label>
+                                                        {
+                                                            JSON.stringify(cityList) !== "[]" ? (
+                                                                <select className="form-select" aria-label="Default select example" value={city} onChange={(e) => setCity(e.target.value)}>
+                                                                    <option value={"StateSelected"} selected>Select City</option>
+                                                                    {
+                                                                        cityList.map((cityList) => (
+                                                                            <option value={cityList.name}>{cityList.name}</option>
+                                                                        ))
+                                                                    }
+                                                                </select>
+                                                            ) : (
+                                                                <select className="form-select" aria-label="Default select example">
+                                                                    <option value={"StateSelected"}>Select...</option>
+                                                                </select>
+                                                            )
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-12">

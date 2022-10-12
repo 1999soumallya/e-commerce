@@ -196,3 +196,8 @@ p.b3 {
 .css-1pahdxg-control {
     min-height: 58px !important;
 }
+
+.select_box{
+    border: 1px solid !important;
+    border-color: #eee !important;
+}

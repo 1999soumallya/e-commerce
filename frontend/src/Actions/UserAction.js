@@ -51,6 +51,8 @@ export const UpdateUserProfileAction = (user) => async (dispatch, getState) => {
         const config = { headers: { "Contnet-Type": "application/json", Authorization: `Bearer ${userInfo.token}` } };
         const { data } = await axios.put(`/profile/`, user, config)
         dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+        dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
     } catch (error) {
         dispatch({ type: USER_UPDATE_FAILS, payload: error.response && error.response.data.message ? error.response.data.message : error.message, });
 
