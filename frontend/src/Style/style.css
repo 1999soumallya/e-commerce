@@ -152,9 +152,13 @@ ul.address-details li {
     box-shadow: none;
     background: #fff;
 }
+
 .account-details-form .form-group .form-control:focus {
     border: 1px solid #2684ff;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px #2684ff !important;
 }
+
 .account-details-form h5.title {
     margin: 30px 0px;
 }
@@ -167,6 +171,7 @@ ul.address-details li {
 .select_box {
     position: relative;
 }
+
 p.b3 {
     font-size: 14px;
     color: #929191;
@@ -197,7 +202,34 @@ p.b3 {
     min-height: 58px !important;
 }
 
-.select_box{
+.select_box {
     border: 1px solid !important;
     border-color: #eee !important;
+}
+
+.form-select:focus{
+    border: 1px solid #2684ff !important;
+    box-shadow: 0 0 0 1px #2684ff !important;
+    border-radius: 4px;
+}
+
+.form-select.select_box{
+    border-radius: 8px;
+    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+    padding: 1.5rem 2rem !important;
+    font-size: .875rem !important;
+    margin-top: 1.5rem !important;
+}
+
+.mx-auto.max-w-xs .css-1s2u09g-control, .mx-auto.max-w-xs .css-1pahdxg-control {
+    border: none!important;
+    background: transparent !important;
+    min-height: 71px !important;
+}
+.mx-auto.max-w-xs .css-1s2u09g-control .css-319lph-ValueContainer {
+    padding-left: 30px;
+}
+
+.mx-auto.max-w-xs .css-1s2u09g-control .css-1pahdxg-control {
+    padding-left: 30px !important;
 }

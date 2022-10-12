@@ -232,7 +232,7 @@ const ProfileScreen = ({ history }) => {
                                                         <label>State</label>
                                                         {
                                                             JSON.stringify(stateList) !== "[]" ? (
-                                                                <select className="form-select" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value)}>
+                                                                <select className="form-select" aria-label="Default select example" value={state} onChange={(e) => setState(e.target.value)} style={{ height: "60px" }}>
                                                                     <option value={"StateSelected"} selected>Select State</option>
                                                                     {
                                                                         stateList.map((stateList) => (
@@ -241,7 +241,7 @@ const ProfileScreen = ({ history }) => {
                                                                     }
                                                                 </select>
                                                             ) : (
-                                                                <select className="form-select" aria-label="Default select example">
+                                                                <select className="form-select" aria-label="Default select example" style={{ height: "60px" }}>
                                                                     <option value={"StateSelected"}>Select...</option>
                                                                 </select>
                                                             )
@@ -253,7 +253,7 @@ const ProfileScreen = ({ history }) => {
                                                         <label>City</label>
                                                         {
                                                             JSON.stringify(cityList) !== "[]" ? (
-                                                                <select className="form-select" aria-label="Default select example" value={city} onChange={(e) => setCity(e.target.value)}>
+                                                                <select className="form-select" aria-label="Default select example" value={city} onChange={(e) => setCity(e.target.value)} style={{ height: "60px" }}>
                                                                     <option value={"StateSelected"} selected>Select City</option>
                                                                     {
                                                                         cityList.map((cityList) => (
@@ -262,7 +262,7 @@ const ProfileScreen = ({ history }) => {
                                                                     }
                                                                 </select>
                                                             ) : (
-                                                                <select className="form-select" aria-label="Default select example">
+                                                                <select className="form-select" aria-label="Default select example" style={{ height: "60px" }}>
                                                                     <option value={"StateSelected"}>Select...</option>
                                                                 </select>
                                                             )
