@@ -45,7 +45,6 @@ const RegisterScreen = () => {
     
     useEffect(() => {
         if (JSON.stringify(userRegister) !== '{}') {
-            console.log(userRegister);
             history.push(redirect);
         } else {
             history.push('/register')
@@ -57,7 +56,7 @@ const RegisterScreen = () => {
         if (password !== confirmpassword) {
             setmessage('Password Do Not Matched')
         } else {
-            dispatch(UserRegister(name, email, password));
+            dispatch(UserRegister(name, email, country.label, state, city, password));
         }
     };
 
@@ -84,7 +83,7 @@ const RegisterScreen = () => {
                                                 <option value={"StateSelected"} selected>Select State</option>
                                                 {
                                                     stateList.map((stateList) => (
-                                                        <option value={stateList.isoCode}>{stateList.name}</option>
+                                                        <option key={stateList.isoCode} value={stateList.isoCode}>{stateList.name}</option>
                                                     ))
                                                 }
                                             </select>
@@ -102,7 +101,7 @@ const RegisterScreen = () => {
                                                 <option value={"StateSelected"} selected>Select City</option>
                                                 {
                                                     cityList.map((cityList) => (
-                                                        <option value={cityList.name}>{cityList.name}</option>
+                                                        <option key={cityList.name} value={cityList.name}>{cityList.name}</option>
                                                     ))
                                                 }
                                             </select>

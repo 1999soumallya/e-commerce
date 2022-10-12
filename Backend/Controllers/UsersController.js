@@ -3,18 +3,21 @@ const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 
 const RegisterUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, country, state, city, password } = req.body;
     const UserExist = await User.findOne({ email });
     if (UserExist) {
         res.status(400);
         throw new Error("User Already Exists");
     } else {
-        const user = await User.create({ name, email, password });
+        const user = await User.create({ name, email, country, state, city, password });
         if (user) {
             res.status(201).json({
                 _id: user._id,
                 name: user.name,
                 email: user.email,
+                country: user.country,
+                state: user.state,
+                city: user.city,
                 isAdmin: user.isAdmin,
                 token: generateToken(user._id),
             });
@@ -33,6 +36,9 @@ const LoginUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            country: user.country,
+            state: user.state,
+            city: user.city,
             isAdmin: user.isAdmin,
             token: generateToken(user._id),
         });
@@ -45,11 +51,14 @@ const LoginUser = asyncHandler(async (req, res) => {
 const getUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
     if (user) {
-        res.json({
+        res.status(201).json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            isAdmin: user.isAdmin,
+            country: user.country,
+            state: user.state,
+            city: user.city,
+            isAdmin: user.isAdmin
         });
     } else {
         res.status(404);
@@ -66,12 +75,15 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             user.password = req.body.password;
         }
         const updateUser = await user.save();
-        res.json({
-            _id: updateUser._id,
-            name: updateUser.name,
-            email: updateUser.email,
-            IsAdmin: updateUser.IsAdmin,
-            token: generateToken(updateUser._id)
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            country: user.country,
+            state: user.state,
+            city: user.city,
+            isAdmin: user.isAdmin,
+            token: generateToken(user._id),
         });
     } else {
         res.status(404)

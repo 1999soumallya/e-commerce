@@ -20,7 +20,6 @@ const CartScreen = ({ match, location, history }) => {
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart;
 
-    // console.log( Object.entries(cartItems).length);
     const removeFromCartHandler = (id) => {
         dispatch(cartRemoveAction(id));
     }

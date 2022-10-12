@@ -49,12 +49,19 @@ const ProfileScreen = ({ history }) => {
             if (!user._id) {
                 dispatch(UserDetailsAction('profile'))
             } else {
+                options.map((options) => {
+                    if (options.label === user.country) {
+                        setCountry(options)
+                    }
+                })
+                setState(user.state)
+                setCity(user.city)
                 setfirstName(user.name.split(" ")[0])
                 setlastName(user.name.split(" ")[1])
                 setEmail(user.email)
             }
         }
-    }, [dispatch, history, user, userInfo])
+    }, [dispatch, history, user, userInfo, options])
 
     useEffect(() => {
         if (JSON.stringify(user) !== "{}") {
@@ -70,7 +77,7 @@ const ProfileScreen = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(UpdateUserProfileAction({ id: user._id, name, Email, password }))
+        dispatch(UpdateUserProfileAction({ id: user._id, name, Email, country, state, city, password }))
     }
 
     return (
@@ -236,7 +243,7 @@ const ProfileScreen = ({ history }) => {
                                                                     <option value={"StateSelected"} selected>Select State</option>
                                                                     {
                                                                         stateList.map((stateList) => (
-                                                                            <option value={stateList.isoCode}>{stateList.name}</option>
+                                                                            <option key={stateList.isoCode} value={stateList.isoCode}>{stateList.name}</option>
                                                                         ))
                                                                     }
                                                                 </select>
@@ -257,7 +264,7 @@ const ProfileScreen = ({ history }) => {
                                                                     <option value={"StateSelected"} selected>Select City</option>
                                                                     {
                                                                         cityList.map((cityList) => (
-                                                                            <option value={cityList.name}>{cityList.name}</option>
+                                                                            <option key={cityList.name} value={cityList.name}>{cityList.name}</option>
                                                                         ))
                                                                     }
                                                                 </select>
@@ -291,7 +298,6 @@ const ProfileScreen = ({ history }) => {
                                         </Form>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

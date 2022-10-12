@@ -2,11 +2,11 @@ import axios from "axios";
 import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILS, USER_LOGOUT, USER_REGISTER_SUCCESS, USER_REGISTER_REQUEST, USER_REGISTER_FAILS, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAILS, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAILS } from '../Constants/UserConstants'
 
 
-export const UserRegister = (name, email, password) => async (dispatch) => {
+export const UserRegister = (name, email, country, state, city, password) => async (dispatch) => {
     try {
         dispatch({ type: USER_REGISTER_REQUEST });
         const config = { headers: { "Contnet-Type": "application/json" } };
-        const { data } = await axios.post("/", { name, email, password }, config);
+        const { data } = await axios.post("/", { name, email, country, state, city, password }, config);
         dispatch({ type: USER_REGISTER_SUCCESS, payload: data, });
         dispatch({ type: USER_LOGIN_SUCCESS, payload: data, });
         localStorage.setItem("userInfo", JSON.stringify(data));
