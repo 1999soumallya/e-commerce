@@ -58,7 +58,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
             country: user.country,
             state: user.state,
             city: user.city,
-            isAdmin: user.isAdmin
+            isAdmin: user.isAdmin,
+            createdAt: user.createdAt,
         });
     } else {
         res.status(404);

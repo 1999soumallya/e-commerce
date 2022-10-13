@@ -14,9 +14,11 @@ const ProfileScreen = ({ history }) => {
     const [firstName, setfirstName] = useState("")
     const [lastName, setlastName] = useState("")
     const [Email, setEmail] = useState("")
+    const [createdAt, setcreatedAt] = useState("")
     const [password, setPassword] = useState("")
     const [name, setname] = useState("")
     const [confirmpassword, setConfirmPassword] = useState("")
+    const [message, setmessage] = useState("");
     const [country, setCountry] = useState('')
     const [state, setState] = useState('')
     const [city, setCity] = useState('')
@@ -59,6 +61,7 @@ const ProfileScreen = ({ history }) => {
                 setfirstName(user.name.split(" ")[0])
                 setlastName(user.name.split(" ")[1])
                 setEmail(user.email)
+                setcreatedAt(user.createdAt.split("T")[0])
             }
         }
     }, [dispatch, history, user, userInfo, options])
@@ -68,7 +71,7 @@ const ProfileScreen = ({ history }) => {
             let f = user.name.split(" ")[0]
             let l = user.name.split(" ")[1]
             if (firstName !== f || lastName !== l) {
-                setname(firstName + " " + lastName)
+                setname(firstName.trim() + " " + lastName.trim())
             } else {
                 setname(user.name)
             }
@@ -77,7 +80,11 @@ const ProfileScreen = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(UpdateUserProfileAction({ id: user._id, name, Email, country, state, city, password }))
+        if (password !== confirmpassword) {
+            setmessage('Password Do Not Matched')
+        } else {
+            dispatch(UpdateUserProfileAction({ id: user._id, name, Email, country, state, city, password }))
+        }
     }
 
     return (
@@ -86,14 +93,14 @@ const ProfileScreen = ({ history }) => {
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-12">
+                        <div className="col-sm-12" style={{ paddingLeft: "39px" }}>
                             <div className="user_info">
                                 <div className="user_dp">
                                     <img src={UserImage} alt="" />
                                 </div>
                                 <div className="info_details">
-                                    <b className="user_name">Hello Annie</b>
-                                    <span className="user_jioning">eTrade Member Since Sep 2020</span>
+                                    <b className="user_name">Hello {firstName}</b>
+                                    <span className="user_jioning">Member Since At { createdAt }</span>
                                 </div>
                             </div>
                         </div>
@@ -207,6 +214,7 @@ const ProfileScreen = ({ history }) => {
                                 <div className="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
                                     <div className="user_account_detl">
                                         {succcess && <ErrorAlert variant="success" children={"Profile Updated"} />}
+                                        {message && <ErrorAlert variant="danger" children={message}></ErrorAlert>}
 
                                         <Form onSubmit={submitHandler} className="account-details-form">
                                             <div className="row">
@@ -303,7 +311,6 @@ const ProfileScreen = ({ history }) => {
                     </div>
                 </div>
             </section>
-
         </div>
     )
 }
