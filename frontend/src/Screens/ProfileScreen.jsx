@@ -49,11 +49,11 @@ const ProfileScreen = ({ history }) => {
             if (!user._id) {
                 dispatch(UserDetailsAction('profile'))
             } else {
-                options.map((options) => {
+                options.forEach(function (options) {
                     if (options.label === user.country) {
                         setCountry(options)
                     }
-                })
+                });
                 setState(user.state)
                 setCity(user.city)
                 setfirstName(user.name.split(" ")[0])
