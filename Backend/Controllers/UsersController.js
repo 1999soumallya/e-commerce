@@ -94,7 +94,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 const SaveAddresses = asyncHandler(async (req, res) => {
-    const { UserID, name, mobileNo, pincode, locality, address_body, country, state, city, address_type } = req.body;
+    const { UserID, name, mobileNo, EmailId, pincode, locality, address_body, country, state, city, address_type } = req.body;
 
     const Save_Address = await SaveAddress.create({ UserID, name, mobileNo, EmailId, pincode, locality, address_body, country, state, city, address_type })
 

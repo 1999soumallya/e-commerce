@@ -95,7 +95,6 @@ const ProfileScreen = ({ history }) => {
         <>
             <div>
                 <section className="profile_section">
-
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12" style={{ paddingLeft: "39px" }}>
@@ -182,18 +181,18 @@ const ProfileScreen = ({ history }) => {
                                             <div className="row">
                                                 <div className="col-sm-6">
                                                     <div className="shipping_header">
-                                                        <b className="shipping_title">Shipping Address</b>
-                                                        <Link to={"/"} className="adress_edit">
-                                                            <i className="fas fa-edit" />
-                                                        </Link>
+                                                        <b className="shipping_title">Address</b>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <div className="col-sm-6">
-                                                    {
-                                                        loading ? <DnaLoader /> : error ? <ErrorAlert variant="danger" children={error} /> : (
-                                                            getAddress.map((getAddress) => (
+                                                {
+                                                    loading ? <DnaLoader /> : error ? <ErrorAlert variant="danger" children={error} /> : (
+                                                        getAddress.map((getAddress) => (
+                                                            <div className="col-sm-6">
+                                                                    <Link to={"/"} className="adress_edit" style={{ position: "relative", left: "50%", top: "17%" }}>
+                                                                        <i className="fas fa-edit" />
+                                                                    </Link>
                                                                 <ul className="address-details" key={getAddress._id}>
                                                                     <li>Name: {getAddress.name}</li>
                                                                     <li>Email: {getAddress.EmailId}</li>
@@ -203,10 +202,10 @@ const ProfileScreen = ({ history }) => {
                                                                         {getAddress.city}, {getAddress.state}, {getAddress.country} {getAddress.pincode}
                                                                     </li>
                                                                 </ul>
-                                                            ))
-                                                        )
-                                                    }
-                                                </div>
+                                                            </div>
+                                                        ))
+                                                    )
+                                                }
                                             </div>
                                         </div>
                                     </div>
