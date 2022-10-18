@@ -1,5 +1,5 @@
 import axios from "axios";
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILS, USER_LOGOUT, USER_REGISTER_SUCCESS, USER_REGISTER_REQUEST, USER_REGISTER_FAILS, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAILS, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAILS } from '../Constants/UserConstants'
+import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILS, USER_LOGOUT, USER_REGISTER_SUCCESS, USER_REGISTER_REQUEST, USER_REGISTER_FAILS, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAILS, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAILS, USER_SAVEADDRESS_REQUEST, USER_SAVEADDRESS_SUCCESS, USER_SAVEADDRESS_FAILS, USER_GETADDRESS_FAILS, USER_GETADDRESS_REQUEST, USER_GETADDRESS_SUCCESS } from '../Constants/UserConstants'
 
 
 export const UserRegister = (name, email, country, state, city, password) => async (dispatch) => {
@@ -56,5 +56,33 @@ export const UpdateUserProfileAction = (user) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({ type: USER_UPDATE_FAILS, payload: error.response && error.response.data.message ? error.response.data.message : error.message, });
 
+    }
+}
+
+export const UserSaveAddressAction = (name, mobileNo, EmailId, pincode, locality, address_body, country, state, city, address_type) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: USER_SAVEADDRESS_REQUEST })
+        const { userLogin: { userInfo } } = getState();
+        const UserID = userInfo._id;
+        const config = { headers: { "Contnet-Type": "application/json" } };
+        const { data } = await axios.post("/saveAddres", { UserID, name, EmailId, mobileNo, pincode, locality, address_body, country, state, city, address_type }, config)
+        dispatch({ type: USER_SAVEADDRESS_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({ type: USER_SAVEADDRESS_FAILS, payload: error.response && error.response.data.message ? error.response.data.message : error.message, });
+    }
+}
+
+export const UserGetAddressAction = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: USER_GETADDRESS_REQUEST })
+        const { userLogin: { userInfo } } = getState();
+        const id = userInfo._id;
+        const config = { headers: { "Contnet-Type": "application/json" } };
+        const { data } = await axios.get(`/getAddress/${id}`, config)
+        dispatch({ type: USER_GETADDRESS_SUCCESS, payload: data })
+
+    } catch (error) {
+        dispatch({ type: USER_GETADDRESS_FAILS, payload: error.response && error.response.data.message ? error.response.data.message : error.message, })
     }
 }

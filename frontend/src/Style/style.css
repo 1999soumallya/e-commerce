@@ -84,7 +84,7 @@ span.user_jioning {
 
 .address_area small {
     font-size: 14px;
-    color: #929191;
+    color: #6a6969;
     display: block;
     margin-bottom: 30px;
     font-weight: 300;
@@ -232,4 +232,59 @@ p.b3 {
 
 .mx-auto.max-w-xs .css-1s2u09g-control .css-1pahdxg-control {
     padding-left: 30px !important;
+}
+
+
+/* Modal Style */
+
+.manage_address {
+    background-color: #fff;
+    min-height: 600px;
+    padding: 24px 32px;
+    position: relative;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 500;
+    display: block;
+    padding-bottom: 20px;
+}
+
+.manage_address_inner {
+    background-color: #f5faff;
+    padding: 20px;
+    position: relative;
+}
+
+.section_title {
+    color: #2874f0;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.location_btn {
+    background: #2874f0;
+    color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+    border: none;
+    margin-bottom: 20px;
+}
+
+.location_btn i {
+    margin-right: 10px;
+}
+
+.manage_address_inner textarea {
+    min-height: 120px;
+}
+
+label.adress_label {
+    font-size: 14px;
+}
+
+.radio_area {
+    display: flex;
+    gap: 15px;
 }

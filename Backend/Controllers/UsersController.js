@@ -1,4 +1,5 @@
 const User = require("../Models/UserModel");
+const SaveAddress = require("../Models/AddressModel");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 
@@ -77,13 +78,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         }
         const updateUser = await user.save();
         res.status(201).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            country: user.country,
-            state: user.state,
-            city: user.city,
-            isAdmin: user.isAdmin,
+            _id: updateUser._id,
+            name: updateUser.name,
+            email: updateUser.email,
+            country: updateUser.country,
+            state: updateUser.state,
+            city: updateUser.city,
+            isAdmin: updateUser.isAdmin,
             token: generateToken(user._id),
         });
     } else {
@@ -92,4 +93,43 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { RegisterUser, LoginUser, getUserProfile, updateUserProfile };
+const SaveAddresses = asyncHandler(async (req, res) => {
+    const { UserID, name, mobileNo, pincode, locality, address_body, country, state, city, address_type } = req.body;
+
+    const Save_Address = await SaveAddress.create({ UserID, name, mobileNo, EmailId, pincode, locality, address_body, country, state, city, address_type })
+
+    if (Save_Address) {
+        res.status(201).json({
+            _id: Save_Address._id,
+            UserID: Save_Address.UserID,
+            name: Save_Address.name,
+            mobileNo: Save_Address.mobileNo,
+            EmailId: Save_Address.EmailId,
+            pincode: Save_Address.pincode,
+            locality: Save_Address.locality,
+            address_body: Save_Address.address_body,
+            country: Save_Address.country,
+            state: Save_Address.state,
+            city: Save_Address.city,
+            address_type: Save_Address.address_type
+        })
+    } else {
+        res.status(404);
+        throw new Error("Address Not Saved");
+    }
+})
+
+const GetAddresss = asyncHandler(async (req, res) => {
+    const getAddress = await SaveAddress.find({ UserID: req.params.id })
+
+    if (getAddress) {
+        res.json(getAddress);
+        
+    } else {
+        res.status(404);
+        throw new Error("Address Not Found")
+    }
+
+})
+
+module.exports = { RegisterUser, LoginUser, getUserProfile, updateUserProfile, SaveAddresses, GetAddresss };
